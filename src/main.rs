@@ -1,14 +1,22 @@
 // fn main() {
 //     println!("Hello, world!");
 // }
-use ferris_says::say;
-use std::io::{stdout, BufWriter};
 
 fn main() {
-  let stdout = stdout();
-  let message = String::from("beginning");
-  let width = message.chars().count();
+  let mut s = String::from("hello world");
+  let word = first_word(&s);
+  s.clear();
+  println!("{}", word);
+}
 
-  let mut writer = BufWriter::new(stdout.lock());
-  say(&message, width, &mut writer).unwrap();
+fn first_word(s: &String) -> &str {
+  let bytes = s.as_bytes();
+
+  for (i, &item) in bytes.iter().enumerate() {
+      if item == b' ' {
+          return &s[0..i];
+      }
+  }
+
+  &s[..]
 }
